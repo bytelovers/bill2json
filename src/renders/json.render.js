@@ -1,8 +1,8 @@
 
 
-const json_render = parserName => (pageData) => {
+const json_render = parserName => pageData => {
 
-  const parserFile = require(`../parsers/${parserName}`);
+  const parserFile = require(`../parsers/${parserName}.parser`);
 
   //check documents https://mozilla.github.io/pdf.js/
   const render_options = {

@@ -5,7 +5,7 @@ require('dotenv').config();
 const corsConfig = { methods: ['GET', 'POST'] };
 const serverConfig = { logger: true };
 const loaderConfig = { paths: ['./routes/*.route.js'], name: 'server' };
-const helmetConfig = {};
+const helmetConfig = { frameguard: { action: 'sameorigin' } };
 
 const server = require('fastify')(serverConfig);
 const cors = require('fastify-cors');
