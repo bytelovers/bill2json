@@ -9,14 +9,14 @@ const _mergePageTexts = pageTexts => {
       .map(item => item)));
 }
 
-const getPageTexts = data => {
+const parsePageTexts = data => {
   const { text, ...noText } = data;
   return {
     info: noText,
     pages: text.split('\n\n').slice(1) }
 }
 
-const formatPageTexts = (pages, pageIndex) => {
+const getPageTexts = (pages, pageIndex) => {
   const arrPages = typeof pageIndex !== 'undefined' ? [pages[pageIndex]] : pages;
   return _mergePageTexts(arrPages)
     .map((strObj, i) => `${i}: ${strObj.str}`); 
@@ -24,6 +24,6 @@ const formatPageTexts = (pages, pageIndex) => {
 
 module.exports = {
   pdf,
-  getPageTexts,
-  formatPageTexts
+  parsePageTexts,
+  getPageTexts
 };
