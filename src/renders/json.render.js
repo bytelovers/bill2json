@@ -1,6 +1,9 @@
-const cepsaParser = require('../parsers/cepsa');
 
-function json_render(pageData) {
+
+const json_render = parserName => (pageData) => {
+
+  const parserFile = require(`../parsers/${parserName}`);
+
   //check documents https://mozilla.github.io/pdf.js/
   const render_options = {
     //replaces all occurrences of whitespace with standard spaces (0x20). The default value is `false`.
@@ -28,7 +31,7 @@ function json_render(pageData) {
 
   return pageData
     .getTextContent(render_options)
-    .then(data => parseData(data, cepsaParser))
+    .then(data => parseData(data, parserFile))
     .then(JSON.stringify)
     .catch(handleError);
 }
