@@ -1,6 +1,7 @@
 'use strict';
 
 const pdf = require('pdf-parse');
+const dot = require('dot-object');
 const jsonRender = require('../../src/renders/json.render');
 const defaultRender = require('../../src/renders/default.render');
 
@@ -26,7 +27,8 @@ server.post('/parser/:parser', (req, res) => {
     renderOptions)
     .then(data => {
       const { text } = data;
-      res.send(JSON.parse(text));
+      const result = JSON.parse(text);
+      res.send(dot.object(result));
     })
     .catch(err => {
       res.code(404);
