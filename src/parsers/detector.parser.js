@@ -43,7 +43,8 @@ module.exports = [{
   {
     id: 40,
     label: 'payment_method',
-    description: 'paymentMethod.name'
+    description: '',
+    path: 'paymentMethod.name'
   },
   {
     id: 46,
