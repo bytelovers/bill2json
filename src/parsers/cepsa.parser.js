@@ -71,19 +71,19 @@ module.exports = [{
     id: 61,
     label: 'payment_method',
     description: '',
-    path: 'payment.method.name'
+    path: 'paymentMethod.name'
   },
   {
     id: 77,
     label: 'payment_reference',
     description: '',
-    path: 'payment.method.reference'
+    path: 'paymentMethod.reference'
   },
   {
     id: 81,
     label: 'payment_tsq',
     description: '',
-    path: 'payment.method.tsq'
+    path: 'paymentMethod.tsq'
   },
   {
     id: 85,

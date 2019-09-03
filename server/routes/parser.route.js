@@ -15,8 +15,9 @@ server.post('/parser', (req, res) => {
     });
 });
 
-server.post('/upload', (req, res) => {
-  const renderOptions = { pagerender: jsonRender('cepsa') };
+server.post('/parser/:parser', (req, res) => {
+  const { parser } = req.params;
+  const renderOptions = { pagerender: jsonRender(parser) };
   // some code to handle file
   const files = req.raw.files;
 
