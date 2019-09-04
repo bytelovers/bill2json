@@ -1,12 +1,13 @@
 'use strict';
 
-const dot = require('dot-object');
 const pdfService = require('../services/pdf.service');
 const jsonRender = require('../../src/renders/json.render');
 const defaultRender = require('../../src/renders/default.render');
 
+const pdfOptions = { version: 'v2.0.550' };
+
 server.post('/parser', (req, res) => {
-  const renderOptions = { pagerender: defaultRender, version: 'v2.0.550' };
+  const renderOptions = Object.assign({}, pdfOptions, { pagerender: defaultRender });
   const files = req.raw.files;
 
   
@@ -20,20 +21,16 @@ server.post('/parser', (req, res) => {
 });
 
 server.post('/parser/:parser', (req, res) => {
+  const renderOptions = Object.assign({}, pdfOptions, { pagerender: jsonRender });
   const { parser } = req.params;
-  const renderOptions = { pagerender: jsonRender(parser) };
   // some code to handle file
   const files = req.raw.files;
 
   pdfService.pdf(
     files.filePdf.data,
     renderOptions)
-    .then(data => {
-      const { text } = data;
-      const result = JSON.parse(text);
-      res.send(dot.object(result));
-    })
-    .catch(err => {
-      res.code(404);
-    });
+    .then(pdfService.parsePageTexts)
+    .then(({ pages }) => pdfService.matchFields(pages, parser))
+    .then(data => res.send(data))
+    .catch(err => res.code(404));
 })
